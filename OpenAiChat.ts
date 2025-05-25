@@ -1,9 +1,8 @@
 import "dotenv/config";
 import { OpenAI } from "openai"
-const { OPENAI_API_KEY } = process.env
 
 const openai = new OpenAI({
-    apiKey: OPENAI_API_KEY,
+    // apiKey: OPENAI_API_KEY,
 })
 
 const completions = await openai.chat.completions.create({
