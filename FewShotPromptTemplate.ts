@@ -33,6 +33,26 @@ const formatted = await prompt.format({
 })
 console.log("formatted은? ", formatted.toString());
 
+
+// 2. model
+
+import { ChatOpenAI } from "@langchain/openai";
+import "dotenv/config";
+import { StringOutputParser } from "@langchain/core/output_parsers";
+
+const parser = new StringOutputParser();
+const model = new ChatOpenAI({ model: "gpt-4o", temperature: 0.0 });
+const result = await model.invoke(formatted);
+const output = await parser.parse(result.content.toString());
+console.log("output은? ", output);
+
+// 3. chaining
+const chain = model.pipe(parser)
+const output2 = await chain.invoke(formatted);
+console.log("output2는? ", output2);
+
+
+
 // Node.js는 기본적으로 .js만 이해함.
 // .ts는 트랜스파일(transpile) 과정을 거쳐야 해
 
